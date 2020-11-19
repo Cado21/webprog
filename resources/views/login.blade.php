@@ -10,6 +10,7 @@
     <link href="{{ asset('css/login.css') }}" rel="stylesheet" type="text/css" >
 </head>
 <body>
-    <div>Login</div>
+    <div> testing LOGIN </div>
+    <img src="{{url('/images/welcome_3.jpg')}}" alt="Image"/>
 </body>
 </html>
