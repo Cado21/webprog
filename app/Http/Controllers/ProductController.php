@@ -11,7 +11,7 @@ class ProductController extends Controller
         $params = $req->query();
         if ( array_key_exists('query', $params) )  {
             $searchValue = $params['query'];
-            $data = $searchValue ? Product::where('name' , 'like', '%'.$searchValue.'%')->get() :Product::all();
+            $data = Product::where('name' , 'like', '%'.$searchValue.'%')->paginate(6);
             return view('search')->with(compact('data', $data));
         } 
         return dd('query not found');

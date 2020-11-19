@@ -17,12 +17,12 @@
     </head>
     <body>
         <header>
-            <div class="nav-container">
+            <div class="container nav-container">
                 <a class="login-btn" href="/login">login</a>
                 <a class="register-btn" href="/register">register</a>
             </div>
         </header>
-        <div class="content-wrapper">
+        <div class="container content-wrapper">
             <form class="search-form" action="/search" method="GET">
                 <div class="title">ReadAndWArite</div>
                 <input type="text" class="search-bar" name="query" placeholder="search for stationary" >
