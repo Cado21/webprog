@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Home</title>
+        <title>Search</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -22,19 +22,10 @@
                 <a class="register-btn" href="/register">register</a>
             </div>
         </header>
-        <div class="content-wrapper">
-            
-            <form class="search-form" action="/search" method="GET">
-                <div class="title">ReadAndWArite</div>
-                <input type="text" id="search-bar" name="query" placeholder="search for stationary" >
-                <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-            <div class="image-container">
-                <img src="{{url('/images/notes.jpg')}}" alt="testing" width="300" height="300"/>
-                <img src="{{url('/images/samsung_pen.jpg')}}" alt="testing" width="300" height="300"/>
-                <img src="{{url('/images/ruler.jpg')}}" alt="testing" width="300" height="300"/>
-                <img src="{{url('/images/dictionary.jpg')}}" alt="testing" width="300" height="300"/>
-            </div>
-        </div>
+        @if ($data->count())
+            <div>{{ json_encode($data) }} </div>
+        @else
+            <div>ga ad</div>
+        @endif
     </body>
 </html>
