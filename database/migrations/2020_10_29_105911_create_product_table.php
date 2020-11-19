@@ -19,6 +19,7 @@ class CreateProductTable extends Migration
             $table->integer('stock');
             $table->float('price', 8, 2);
             $table->mediumText('image')->nullable();
+            $table->text('description');
             $table->timestamps();
             
             $table->unsignedBigInteger('type_id');

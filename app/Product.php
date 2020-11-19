@@ -11,6 +11,7 @@ class Product extends Model
         'stock',
         'price',
         'image',
+        'description',
     ];
     public function Type(){
         return $this->belongsTo('App\Type');
