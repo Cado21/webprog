@@ -23,10 +23,9 @@
             </div>
         </header>
         <div class="content-wrapper">
-            
             <form class="search-form" action="/search" method="GET">
                 <div class="title">ReadAndWArite</div>
-                <input type="text" id="search-bar" name="query" placeholder="search for stationary" >
+                <input type="text" class="search-bar" name="query" placeholder="search for stationary" >
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
             <div class="image-container">
