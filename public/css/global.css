@@ -50,7 +50,7 @@ html, body {
     text-transform: uppercase;
     color: grey;
 }
-.nav-right:hover, .register-btn:hover {
+.nav-right > .login-btn:hover, .nav-right > .register-btn:hover {
     background-color: lightgray;
     color: grey;
 }
