@@ -8,6 +8,7 @@ class Type extends Model
 {
     protected $fillable = [
         'name', 
+        'image',
     ];
     public function products(){
         return $this->hasMany('App\Product');

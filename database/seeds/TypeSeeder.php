@@ -24,10 +24,14 @@ class TypeSeeder extends Seeder
             'smart note', 
             'eraser'
         ];
+        $images = ['notes.jpg','samsung_pen.jpg', 'dictionary.jpg', 'ruler.jpg'];
+        $i = 0;
         foreach( $typeNames as $type ) {
             Type::create([
                 'name' => $type,
+                'image'=> $images[$i],
             ]);
+            $i = $i > 2 ? 0 : $i+1;
         }
     }
 }
