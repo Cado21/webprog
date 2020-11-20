@@ -15,11 +15,10 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TypeController@getAll');
 
-Route::get('/search' , 'ProductController@search');
+Route::get('/product/search' , 'ProductController@search');
+Route::get('/product/detail/{id}' , 'ProductController@getById');
 
 
 Route::get('/login', [LoginController::class, 'login']);

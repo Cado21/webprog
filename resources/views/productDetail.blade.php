@@ -14,7 +14,7 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- styles -->
     <link href="{{ asset('css/global.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/search.css') }}" rel="stylesheet" type="text/css">
+    {{-- <link href="{{ asset('css/search.css') }}" rel="stylesheet" type="text/css"> --}}
 </head>
 
 <body>
@@ -33,26 +33,9 @@
             </div>
         </div>
     </header>
-    <div class="container search-container">
-        @if ($data->count())
-        
-        <div class="result-wrap-container">
-            @foreach ($data as $eachData)
-                <a href={{'/product/detail/' . $eachData->id }}> 
-                    <div class="image-card">
-                        <img src={{ asset('images/' . $eachData->image) }} alt={{ $eachData->name }}>
-                        <div class="detail-container">
-                            <div class="name">{{ $eachData->name }}</div>
-                            <div class="desc">{{ $eachData->description }}</div>
-                        </div>
-                    </div>
-                </a>
-            @endforeach
-        </div>
-        {{ $data->appends($_GET)->links() }}
-        @else
-            <div>ga ad</div>
-        @endif
+    <div class="container product-detail-container">
+        <img src={{ asset('images/' . $data->image) }} />
+        {{ json_encode($data)}}
     </div>
 </body>
 
