@@ -22,22 +22,25 @@
     width: 80%;
     background-color:lightgrey;
 }
-.login-form-section {
+.form-section {
     display:flex;
     flex-direction:row;
     margin: 10px 50px;
 }
-.login-form-section .left {
+.form-section .left {
     width: 30%;
     text-align:right;
     margin-right: 20px;
 }
 
-.login-form-section .right {
-    width: 70%;
+.form-section .right {
+    width: 100%;
     display:flex;
-    flex-direction:row;
-    align-items:center;
+    flex-direction:column;
+    align-items:flex-start;
+}
+.err-msg {
+    color:red;
 }
 .cb-input {
     margin-right: 5px;
@@ -47,16 +50,16 @@
     .form-title-container {
         padding:20px;
     }
-    .login-form-section {
+    .form-section {
         flex-direction:column;
         margin: 10px 20px;
         
     }
-    .login-form-section .left {
+    .form-section .left {
         text-align:left;
         width:100%;
     }
-    .login-form-section .right {
+    .form-section .right {
         width:100%;
     }
 

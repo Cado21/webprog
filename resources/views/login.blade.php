@@ -13,7 +13,7 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <link href="{{ asset('css/global.css') }}" rel="stylesheet" type="text/css" >
-    <link href="{{ asset('css/login.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ asset('css/login-register.css') }}" rel="stylesheet" type="text/css" >
 </head>
 <body>
     <header>
@@ -36,24 +36,30 @@
             <div class="form-title-container">
                 <div class="form-title">Login</div>
             </div>
-            <form class="login-form">
-                
-                <div class="login-form-section">
+            <form class="form">
+                <div class="form-section">
                     <div class="left">Email address</div>
-                    <input type="email" class="form-control right" >
+                    <input type="email" class="form-control right is-invalid" >
                 </div>
-                <div class="login-form-section">
+                <div class="form-section">
                     <div class="left">Password</div>
-                    <input type="password" class="form-control right">
+                    <input type="password" class="form-control right is-invalid">
                 </div>
-                <div class="login-form-section">
+                <div class="form-section">
                     <div class="left"></div>
                     <div class="right">
+                        <div class="err-msg"> invalid username/ password</div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="left"></div>
+                    <div class="right" style="flex-direction:row; align-items:center;">
                         <input type="checkbox" class="cb-input">
                         <div class="cb-label">Remember Me</div>
                     </div>
                 </div>
-                <div class="login-form-section">
+                
+                <div class="form-section">
                     <div class="left"></div>
                     <div class="right">
                         <button type="submit" class="btn btn-primary">Submit</button>
