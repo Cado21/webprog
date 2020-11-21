@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +17,11 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', 'TypeController@getAll');
 
+Route::get('/login', 'AuthController@showLoginForm');
+Route::post('/login',  'AuthController@login');
+Route::get('/register', 'AuthController@showRegisterForm');
+Route::post('/register', 'AuthController@register');
+
 Route::get('/product/search' , 'ProductController@search');
 Route::get('/product/detail/{id}' , 'ProductController@getById');
 
-
-Route::get('/login', [LoginController::class, 'login']);
-Route::get('/register', [RegisterController::class , 'register']);

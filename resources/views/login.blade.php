@@ -36,14 +36,15 @@
             <div class="form-title-container">
                 <div class="form-title">Login</div>
             </div>
-            <form class="form">
+            <form class="form" method="POST" action="/login">
+                @csrf
                 <div class="form-section">
                     <div class="left">Email address</div>
-                    <input type="email" class="form-control right is-invalid" >
+                    <input type="text" class="form-control right is-invalid" name="email">
                 </div>
                 <div class="form-section">
                     <div class="left">Password</div>
-                    <input type="password" class="form-control right is-invalid">
+                    <input type="password" class="form-control right is-invalid" name="password">
                 </div>
                 <div class="form-section">
                     <div class="left"></div>
@@ -65,6 +66,9 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             </form>
         </div>
     </div>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Login</title>
+    <title>Register</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -36,34 +36,42 @@
             <div class="form-title-container">
                 <div class="form-title">Register</div>
             </div>
-            <form class="form">
+            <form class="form" action="/register" method="POST">
+                {{ csrf_field() }}
+                @if ( $errors->first('error') )
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div class="err-msg"> {{ $errors->first('error') }}  </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                @endif
+                
                 <div class="form-section">
                     <div class="left">Name</div>
                     <div class="right"> 
-                        <input type="text" class="form-control is-invalid" >
-                        <div class="err-msg"> Name must be ... </div>
+                        <input type="text" class="form-control {{ $errors->first('name') ? 'is-invalid' : ''}}" name="name" >
+                        <div class="err-msg"> {{ $errors->first('name') }} </div>
                     </div>
                 </div>
                 <div class="form-section">
                     <div class="left">Email address</div>
                     <div class="right"> 
-                        <input type="email" class="form-control is-invalid" >
-                        <div class="err-msg"> Email must be ... </div>
+                        <input type="text" class="form-control {{ $errors->first('email') ? 'is-invalid' : ''}}" name="email">
+                        <div class="err-msg"> {{$errors->first('email')}} </div>
                     </div>
                 </div>
                 <div class="form-section">
                     <div class="left">Password</div>
                     <div class="right"> 
-                        <input type="password" class="form-control is-invalid" >
-                        <div class="err-msg"> password must be ... </div>
+                        <input type="password" class="form-control {{$errors->first('password') ? 'is-invalid' : ''}}" name="password">
+                        <div class="err-msg"> {{$errors->first('password')}} </div>
                     </div>
                     
                 </div>
                 <div class="form-section">
                     <div class="left">Confirm Password</div>
                     <div class="right"> 
-                        <input type="password" class="form-control is-invalid" >
-                        <div class="err-msg"> password must be ... </div>
+                        <input type="password" class="form-control {{$errors->first('confirm-password') ? 'is-invalid' : ''}}" name="confirm-password">
+                        <div class="err-msg"> {{$errors->first('confirm-password')}} </div>
                     </div>
                 </div>
                 <div class="form-section">
