@@ -37,7 +37,7 @@
                 <div class="form-title">Login</div>
             </div>
             <form class="form" method="POST" action="/login">
-                @csrf
+                {{ csrf_field() }}
                 <div class="form-section">
                     <div class="left">Email address</div>
                     <input type="text" class="form-control right is-invalid" name="email">
@@ -55,7 +55,7 @@
                 <div class="form-section">
                     <div class="left"></div>
                     <div class="right" style="flex-direction:row; align-items:center;">
-                        <input type="checkbox" class="cb-input">
+                        <input type="checkbox" class="cb-input" name="remember-me">
                         <div class="cb-label">Remember Me</div>
                     </div>
                 </div>

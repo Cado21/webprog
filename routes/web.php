@@ -19,6 +19,7 @@ Route::get('/', 'TypeController@getAll');
 
 Route::get('/login', 'AuthController@showLoginForm');
 Route::post('/login',  'AuthController@login');
+Route::get('/logout',  'AuthController@logout');
 Route::get('/register', 'AuthController@showRegisterForm');
 Route::post('/register', 'AuthController@register');
 

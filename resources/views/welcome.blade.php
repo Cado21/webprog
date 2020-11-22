@@ -18,8 +18,13 @@
     <body>
         <header>
             <div class="container nav-container">
-                <a class="login-btn" href="/login">login</a>
-                <a class="register-btn" href="/register">register</a>
+                @if (Auth::guest())
+                    <a class="login-btn" href="/login">login</a>
+                    <a class="register-btn" href="/register">register</a>
+                @else
+                    {{ Auth::user()->name }}
+                    <a href="/logout">Logout</a>
+                @endif
             </div>
         </header>
         <div class="container content-wrapper">

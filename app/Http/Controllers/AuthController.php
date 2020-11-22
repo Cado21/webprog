@@ -5,11 +5,12 @@ use Illuminate\Http\Request;
 use Validator;
 use Hash;
 use Session;
+use Auth;
 use App\User;
-
 class AuthController extends Controller {
     public function showLoginForm(Request $req){
-        return view('login');
+        $loggedIn = Auth::check();
+        return $loggedIn ? redirect('/') : view('login');
     }
     public function showRegisterForm(Request $req){
         return view('register');
@@ -26,6 +27,7 @@ class AuthController extends Controller {
             'password.required'     => 'Password wajib diisi',
             'password.string'       => 'Password harus berupa string'
         ];
+
         $validator = Validator::make($req->all(), $rules, $messages);
  
         if($validator->fails()){
@@ -35,20 +37,20 @@ class AuthController extends Controller {
             ->withInput($req->all);
         }
  
-        $data = [
+        $credentials = [
             'email'     => $req->input('email'),
             'password'  => $req->input('password'),
         ];
- 
-        Auth::attempt($data);
-        $loginSuccess = Auth::check();
-
-        if ($loginSuccess) { 
-            return redirect()->route('/');
-        } else { 
-            Session::flash('error', 'Email atau password salah');
-            return redirect()->route('login');
-        }
+        $authCookie = $req->input('remember-me') == 'on' ? true : false;
+        $loggedIn = Auth::attempt($credentials , $authCookie);
+        return $loggedIn ? 
+            redirect('/') : 
+            redirect('/login')
+                ->withErrors(['error' => 'Email atau password Salah!']);
+    }
+    public function logout(Request $req) {
+        Auth::logout();
+        return redirect('/');
     }
     public function register( Request $req) {
         $rules = [
