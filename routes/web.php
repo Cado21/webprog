@@ -15,14 +15,17 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', 'TypeController@getAll');
 
-Route::get('/login', 'AuthController@showLoginForm');
-Route::post('/login',  'AuthController@login');
-Route::get('/logout',  'AuthController@logout');
-Route::get('/register', 'AuthController@showRegisterForm');
-Route::post('/register', 'AuthController@register');
+Route::get('/', 'TypeController@getAll');
 
 Route::get('/product/search' , 'ProductController@search');
 Route::get('/product/detail/{id}' , 'ProductController@getById');
+
+// Route::get('/login', 'AuthController@showLoginForm');
+// Route::post('/login',  'AuthController@login');
+// Route::get('/logout',  'AuthController@logout');
+// Route::get('/register', 'AuthController@showRegisterForm');
+// Route::post('/register', 'AuthController@register');
+
+Auth::routes();
 
