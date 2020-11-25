@@ -4,6 +4,16 @@
 <div class="container search-container">
     @if ($data->count())
     
+    @if (Auth::check())
+        @if ( Auth::user()->role == 'admin' )
+            <a href="#" class="btn-container btn-primary">Add New Stationary</a>
+            <a href="#" class="btn-container btn-primary">Add New Stationary Type</a>
+            <a href="#" class="btn-container btn-primary">Edit Stationary Type</a>
+        @endif
+    @else
+    
+    @endif
+    
     <div class="result-wrap-container">
         @foreach ($data as $eachData)
             <a href={{'/product/detail/' . $eachData->id }}> 
