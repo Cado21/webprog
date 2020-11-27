@@ -45,7 +45,7 @@
                         @if (Request::is('product/*'))
                             <form action="/product/search" class="search-bar-container">
                                 <input type="text" class="search-bar" name="query" placeholder="search for stationary" value={{ Request::get('query') }}>
-                                <button class="btn-primary">Search</button>
+                                <button class="btn btn-primary">Search</button>
                             </form>
                         @endif
                     </ul>
@@ -89,5 +89,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('footer-script')
 </body>
 </html>

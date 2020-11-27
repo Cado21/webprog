@@ -40,10 +40,10 @@
             @csrf
             <div class="input-wrapper">
                 <div class="image-input-text">Browse Photos</div>
-                <input type="file" name="image">
+                <input type="file" name="image" accept="image/*">
             </div>
             <input type="text" name="name">
-            <button type="submit" class="btn-primary">Add new Stationary Type </button>
+            <button type="submit" class="btn btn-primary">Add new Stationary Type </button>
         </form>
     </div>
 @endsection

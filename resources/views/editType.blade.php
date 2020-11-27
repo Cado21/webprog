@@ -32,8 +32,6 @@
                         <div>{{ Session::get('editedData') }}</div>
                     </div>
                 @endif
-                
-
 
                 <?php $i = 0?>
                 @foreach ($data as $type)
@@ -45,13 +43,13 @@
                                 @csrf
                                 @method("put")
                                 <input type="text" name="name">
-                                <button class="btn-primary" method="submit">Edit</button>
+                                <button class="btn btn-primary" method="submit">Edit</button>
                             </form>
 
                             <form action={{ route('type.delete' , $type->id )}} method="POST">
                                 @csrf
                                 @method("delete")
-                                <button class="btn-primary" method="">Delete</button>
+                                <button class="btn btn-primary" method="">Delete</button>
                             </form>
                         </td>
                     </tr>

@@ -10,9 +10,9 @@
         
         @if (Auth::check())
             @if ( Auth::user()->role == 'admin' )
-                <a href="/product/add" class="btn-container btn-primary">Add New Stationary</a>
-                <a href="/type" class="btn-container btn-primary">Add New Stationary Type</a>
-                <a href="/type/edit" class="btn-container btn-primary">Edit Stationary Type</a>
+                <a href="/product/add" class="btn-container btn btn-primary">Add New Stationary</a>
+                <a href="/type" class="btn-container btn btn-primary">Add New Stationary Type</a>
+                <a href="/type/edit" class="btn-container btn btn-primary">Edit Stationary Type</a>
             @endif
         @else
         
