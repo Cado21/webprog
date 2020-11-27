@@ -26,4 +26,10 @@ class ProductController extends Controller
         $data = Product::find($id);
         return view('productDetail')->with(compact('data', $data));
     }
+    public function showCreateProduct( ) {
+        return view('createProduct');
+    }
+    public function create( Request $req ) {
+        
+    }
 }

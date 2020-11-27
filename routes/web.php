@@ -16,9 +16,22 @@ use App\Http\Controllers\ProductController;
 */
 
 Auth::routes();
+// All Access 
+Route::get('/', 'TypeController@index');
 
-Route::get('/', 'TypeController@getAll');
-
+Route::get('/product/add' , 'ProductController@showCreateProduct');
+Route::post('/product/add' , 'ProductController@create');
 Route::get('/product/search' , 'ProductController@search');
 Route::get('/product/detail/{id}' , 'ProductController@getById');
 
+// Admin Access
+Route::get('/type', 'TypeController@showCreateType');
+Route::post('/type', 'TypeController@create');
+
+Route::get('/type/edit', 'TypeController@showEditType');
+Route::put('/type/edit/{id}', 'TypeController@editTypeName')->name('type.edit_name');
+
+Route::delete('/type/delete/{id}', 'TypeController@delete')->name('type.delete');;
+
+// Member Access
+// cart

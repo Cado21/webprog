@@ -23,7 +23,7 @@ class CreateProductTable extends Migration
             $table->timestamps();
             
             $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('types');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');;
         });
     }
 
