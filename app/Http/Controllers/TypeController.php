@@ -92,12 +92,7 @@ class TypeController extends Controller
             return redirect()->back()
                         ->withErrors('File with id: '. $id .'not found');
         }
-        // uncomment this to delete the local image
         // deleteLocalImage($type->image);
-        // $image_path = public_path( 'images/' . $type->image ); 
-        // if(File::exists($image_path)) {
-        //     File::delete( $image_path);
-        // }
         $type->delete();
         
         return redirect()->back()

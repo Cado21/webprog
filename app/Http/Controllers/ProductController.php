@@ -117,8 +117,7 @@ class ProductController extends Controller
                 ->withErrors('Product with id: ' . $id . ' not found!')
                 ->withInput();
         } else {
-            // uncomment bellow to delete the local image
-            deleteLocalImage($product->image);
+            // deleteLocalImage($product->image);
             $product->delete();
             return redirect('/product/search');
         }
