@@ -23,17 +23,17 @@
             @csrf
             @method('put')
             <div class="input-group mb-3">
-                <input type="text" name="name" class="form-control" placeholder="Stationary Name" value={{ $data->name }}>
+                <input type="text" name="name" class="form-control" placeholder="Stationary Name" value="{{ $data->name }}">
             </div>
             <div class="input-group mb-3">
-                <input type="text" name="description" class="form-control" placeholder="Stationary Description" value={{ $data->description }}>
+                <input type="text" name="description" class="form-control" placeholder="Stationary Description" value="{{ $data->description }}">
             </div>
             <div class="input-group mb-3">
-                <input type="number" name="stock" class="form-control" placeholder="Stock" value={{ $data->stock }}>
+                <input type="number" name="stock" class="form-control" placeholder="Stock" value="{{ $data->stock }}">
             </div>
 
             <div class="input-group mb-3">
-                <input type="number" name="price" class="form-control" placeholder="Price" min="1" max="99999999" value={{ $data->price }}>
+                <input type="number" name="price" class="form-control" placeholder="Price" min="1" max="99999999" value="{{ $data->price }}">
             </div>
             <button class="btn btn-primary">Update Stationary Data</button>
         </form>
