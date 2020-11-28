@@ -22,7 +22,7 @@
             @foreach ($data as $eachData)
                 <a href={{'/product/detail/' . $eachData->id }}> 
                     <div class="image-card">
-                        <img src={{ asset('images/' . $eachData->image) }} alt={{ $eachData->name }}>
+                        <img src={{ asset('images/' . addslashes($eachData->image) ) }} alt={{ $eachData->name }}>
                         <div class="detail-container">
                             <div class="name">{{ $eachData->name }}</div>
                             <div class="desc">{{ $eachData->description }}</div>

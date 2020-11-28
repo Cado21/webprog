@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/', 'TypeController@index');
 
 Route::get('/product/add' , 'ProductController@showCreateProduct');
-Route::post('/product/add' , 'ProductController@create');
+Route::post('/product/add' , 'ProductController@create')->name('product.add');
 Route::get('/product/search' , 'ProductController@search');
 Route::get('/product/detail/{id}' , 'ProductController@getById');
 
