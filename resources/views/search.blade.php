@@ -33,7 +33,7 @@
         </div>
         {{ $data->appends($_GET)->links() }}
         @else
-            <div>ga ad</div>
+            <div>Keyword that you looking for not found!</div>
         @endif
     </div>
 @endsection
