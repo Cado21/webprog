@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="container">
+        @if (Session::has('editedData'))
+            <div class="alert alert-success">
+                <div>{{ Session::get('deletedData') }}</div>
+            </div>  
+        @endif
         <div class="item-container">
             <div class="left">
                 <img src={{ asset('images/' . $data->image) }} class="product-img"/>
@@ -19,7 +24,11 @@
                 <div class="text" style="display:flex; flex-direction:row; justify-content:flex-end;">
                     @if (Auth::check())
                         @can('isAdmin')
-                            <a href="/product/delete" class="btn btn-danger">delete</a>
+                            <form action="{{ route('product.delete', $data->id) }}" method="POST">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger">delete</button>
+                            </form>
                             <a href="/product/edit/{{$data->id}}" class="btn btn-primary">edit</a>
                         @endcan
                         @can('isMember')

@@ -17,7 +17,6 @@
             <div>{{ Session::get('editedData') }}</div>
         </div>  
     @endif
-    {{json_encode($data)}}
     <div class="container">
         <form action={{route('product.edit' , $data->id)}} method="POST">
             @csrf

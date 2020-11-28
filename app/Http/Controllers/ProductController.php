@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Type;
 use Validator;
+use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     
@@ -108,5 +109,20 @@ class ProductController extends Controller
 
         return redirect()->back()
                     ->with('createdData', $product );  
+    }
+    public function delete ( $id ) {
+        $product = Product::find($id);
+        if ( !$product ) {
+            return redirect()->back()
+                ->withErrors('Product with id: ' . $id . ' not found!')
+                ->withInput();
+        } else {
+            // uncomment bellow to delete the local image
+            deleteLocalImage($product->image);
+            $product->delete();
+            return redirect('/product/search');
+        }
+
+
     }
 }
