@@ -16,7 +16,7 @@ class TypeController extends Controller
     }
     public function showCreateType() {
         $types = Type::all();
-        return view('addType')->with('data',$types);
+        return view('createType')->with('data',$types);
     }
     public function showEditType() {
         $types = Type::all();

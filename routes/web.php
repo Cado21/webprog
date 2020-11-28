@@ -21,6 +21,10 @@ Route::get('/', 'TypeController@index');
 
 Route::get('/product/add' , 'ProductController@showCreateProduct');
 Route::post('/product/add' , 'ProductController@create')->name('product.add');
+
+Route::get('/product/edit/{id}' , 'ProductController@showEditProduct');
+Route::put('/product/edit/{id}' , 'ProductController@edit')->name('product.edit');
+
 Route::get('/product/search' , 'ProductController@search');
 Route::get('/product/detail/{id}' , 'ProductController@getById');
 

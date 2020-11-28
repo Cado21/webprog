@@ -26,9 +26,42 @@ class ProductController extends Controller
         $data = Product::find($id);
         return view('productDetail')->with(compact('data', $data));
     }
-    public function showCreateProduct( ) {
+    public function showCreateProduct() {
         $types = Type::all();
         return view('createProduct')->with('data', $types);
+    }
+    public function showEditProduct ($id)  {
+        $product = Product::find($id);
+        return view('editProduct')->with('data', $product);
+    }
+    public function edit( Request $req , $id ) {
+        $rules = [
+            'name' => 'required|min:5',
+            'description' => 'required',
+            'stock' => 'required',
+            'price' => 'required',
+        ];
+        $messages = [
+            'image.required'        => 'image wajib diisi',
+            'name.required'         => 'name wajib diisi',
+            'description.required'  => 'description wajib diiisi',
+        ];
+        
+        $validator = Validator::make($req->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $product = Product::find($id);
+        $product->name          = $req->name;
+        $product->description   = $req->description;
+        $product->stock         = $req->stock;
+        $product->price         = $req->price;
+        $product->save();
+
+        return redirect()->back()
+                    ->with('editedData', $product );  
     }
     public function create( Request $req ) {
         $rules = [

@@ -9,11 +9,11 @@
         @if ($data->count())
         
         @if (Auth::check())
-            @if ( Auth::user()->role == 'admin' )
+            @can('isAdmin')
                 <a href="/product/add" class="btn-container btn btn-primary">Add New Stationary</a>
                 <a href="/type" class="btn-container btn btn-primary">Add New Stationary Type</a>
                 <a href="/type/edit" class="btn-container btn btn-primary">Edit Stationary Type</a>
-            @endif
+            @endcan
         @else
         
         @endif
@@ -22,7 +22,7 @@
             @foreach ($data as $eachData)
                 <a href={{'/product/detail/' . $eachData->id }}> 
                     <div class="image-card">
-                        <img src={{ asset('images/' . addslashes($eachData->image) ) }} alt={{ $eachData->name }}>
+                        <img src={{ asset('images/' . $eachData->image ) }} alt={{ $eachData->name }}>
                         <div class="detail-container">
                             <div class="name">{{ $eachData->name }}</div>
                             <div class="desc">{{ $eachData->description }}</div>
