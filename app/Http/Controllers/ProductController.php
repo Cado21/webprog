@@ -17,7 +17,7 @@ class ProductController extends Controller
             $data = Product::where('name', 'like' , '%' . $params['query'] . '%')->paginate(6);
         } else if ( $req->has('type') ) {
             $type = Type::where('name' , '=' ,$params['type'])->first();
-            $data = Product::where('type_id' , '=' , $type->id)->paginate(6);
+            $data = !$type ? [] : Product::where('type_id' , '=' , $type->id)->paginate(6);
         } else {
             $data = Product::where('name', 'like' , '%')->paginate(6);
         }

@@ -20,7 +20,7 @@
         <div class="nav-container container">
             <div class="nav-search-container">
                 <a class="logo" href="/">ReadAndWArite</a>
-                <form action="/product/search" class="search-bar-container">
+                <form action="/search" class="search-bar-container">
                     <input type="text" class="search-bar" name="query" placeholder="search for stationary" value={{ Request::get('query') }}>
                     <button class="btn-primary">Search</button>
                 </form>

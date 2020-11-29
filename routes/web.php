@@ -19,6 +19,11 @@ Auth::routes();
 // All Access 
 Route::get('/', 'TypeController@index');
 
+Route::get('/search' , 'ProductController@search');
+Route::get('/product/detail/{id}' , 'ProductController@getById');
+
+// Admin Access
+
 Route::get('/product/add' , 'ProductController@showCreateProduct');
 Route::post('/product/add' , 'ProductController@create')->name('product.add');
 
@@ -26,12 +31,7 @@ Route::get('/product/edit/{id}' , 'ProductController@showEditProduct');
 Route::put('/product/edit/{id}' , 'ProductController@edit')->name('product.edit');
 
 Route::delete('/product/delete/{id}' , 'ProductController@delete')->name('product.delete');
-
-Route::get('/product/search' , 'ProductController@search');
-Route::get('/product/detail/{id}' , 'ProductController@getById');
-
-// Admin Access
-Route::get('/type', 'TypeController@showCreateType');
+Route::get('/type', 'TypeController@showCreateType')->middleware('isAdmin');
 Route::post('/type', 'TypeController@create');
 
 Route::get('/type/edit', 'TypeController@showEditType');
