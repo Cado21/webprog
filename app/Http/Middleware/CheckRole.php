@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-use Auth;
-use Closure;
 
-class CheckIsAdmin
+use Closure;
+use Auth;
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -13,11 +13,12 @@ class CheckIsAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
-        if (Auth::user()->role == 'admin') {
-            return $next($request);
-        }
+        if ( Auth::check() )
+            if ( Auth::user()->role == $role) 
+                return $next($request);
+        
 
         return redirect()->back()->withErrors('You are not authorized to access this path');
     }

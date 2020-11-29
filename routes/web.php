@@ -16,29 +16,28 @@ use App\Http\Controllers\ProductController;
 */
 
 Auth::routes();
-// All Access 
-Route::get('/', 'TypeController@index');
 
+Route::get('/', 'TypeController@index');
 Route::get('/search' , 'ProductController@search');
 Route::get('/product/detail/{id}' , 'ProductController@getById');
 
-// Admin Access
+Route::middleware(['role:admin'])->group( function(){
+    Route::get('/product/add' , 'ProductController@showCreateProduct');
+    Route::post('/product/add' , 'ProductController@create')->name('product.add');
+    
+    Route::get('/product/edit/{id}' , 'ProductController@showEditProduct');
+    Route::put('/product/edit/{id}' , 'ProductController@edit')->name('product.edit');
+    
+    Route::delete('/product/delete/{id}' , 'ProductController@delete')->name('product.delete');
+    Route::get('/type', 'TypeController@showCreateType');
+    Route::post('/type', 'TypeController@create');
+    
+    Route::get('/type/edit', 'TypeController@showEditType');
+    Route::put('/type/edit/{id}', 'TypeController@editTypeName')->name('type.edit_name');
+    
+    Route::delete('/type/delete/{id}', 'TypeController@delete')->name('type.delete');
+});
 
-Route::get('/product/add' , 'ProductController@showCreateProduct');
-Route::post('/product/add' , 'ProductController@create')->name('product.add');
+Route::middleware(['role:member'])->group( function(){
 
-Route::get('/product/edit/{id}' , 'ProductController@showEditProduct');
-Route::put('/product/edit/{id}' , 'ProductController@edit')->name('product.edit');
-
-Route::delete('/product/delete/{id}' , 'ProductController@delete')->name('product.delete');
-Route::get('/type', 'TypeController@showCreateType')->middleware('isAdmin');
-Route::post('/type', 'TypeController@create');
-
-Route::get('/type/edit', 'TypeController@showEditType');
-Route::put('/type/edit/{id}', 'TypeController@editTypeName')->name('type.edit_name');
-
-Route::delete('/type/delete/{id}', 'TypeController@delete')->name('type.delete');
-
-// Member Access
-// cart
-// history
+});
