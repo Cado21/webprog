@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
-
+use App\Providers\RouteServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +17,11 @@ use App\Http\Controllers\ProductController;
 
 Auth::routes();
 
-Route::get('/', 'TypeController@index');
-Route::get('/search' , 'ProductController@search');
-Route::get('/product/detail/{id}' , 'ProductController@getById');
+Route::get(RouteServiceProvider::HOME, 'TypeController@index');
+Route::get(RouteServiceProvider::SEARCH , 'ProductController@search');
+Route::middleware(['role:admin|member'])->group( function () {
+    Route::get('/product/detail/{id}' , 'ProductController@getById');
+});
 
 Route::middleware(['role:admin'])->group( function(){
     Route::get('/product/add' , 'ProductController@showCreateProduct');
