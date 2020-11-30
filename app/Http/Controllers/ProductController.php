@@ -7,6 +7,8 @@ use App\Product;
 use App\Type;
 use Validator;
 use Illuminate\Support\Facades\File;
+use App\Providers\RouteServiceProvider;
+
 class ProductController extends Controller
 {
     
@@ -119,7 +121,7 @@ class ProductController extends Controller
         } else {
             // deleteLocalImage($product->image);
             $product->delete();
-            return redirect('/product/search');
+            return redirect( RouteServiceProvider::PRODUCT . '/search' );
         }
 
 

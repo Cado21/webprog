@@ -32,7 +32,11 @@
                             <a href="/product/edit/{{$data->id}}" class="btn btn-primary">edit</a>
                         @endcan
                         @can('isMember')
-                            add qty , add to cart with input field
+                        <form action="/cart/add/{{$data->id}}" method="post">
+                            @csrf
+                            <input type="number" name="quantity" value="1" min="1">
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </form>
                         @endcan
                     @endif
                 </div>

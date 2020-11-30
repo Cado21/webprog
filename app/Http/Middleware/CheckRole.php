@@ -15,11 +15,9 @@ class CheckRole
      */
     public function handle($request, Closure $next, $roles = null)
     {
-        if ( Auth::check() ) {
-            $rolesInArray = explode('|', $roles);
-            if ( in_array(Auth::user()->role, $rolesInArray )) 
-                return $next($request);
-        }
+        $rolesInArray = explode('|', $roles);
+        if ( in_array(Auth::user()->role, $rolesInArray )) 
+            return $next($request);
         return redirect()->back()->withErrors('You are not authorized to access this path');
     }
 }

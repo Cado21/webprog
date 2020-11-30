@@ -7,13 +7,22 @@ use App\Product;
 use App\Cart;
 use App\Transaction;
 use Auth;
+use Validator;
+use App\Providers\RouteServiceProvider;
 
 class CartController extends Controller
 {
-    public function createOne( Request $req ){
+    public function getAll( ) {
+        $user = Auth::user();
+        $carts = Cart::where([
+            ['user_id' ,'=', $user->id],
+            ['checkout' ,'=', false],
+        ])->get();
+        return view('cart')->with('data' , $carts );
+    }
+    public function create( Request $req , $id ){
         $rules = [
             'quantity' => 'required|min:1',
-            'product_id' => 'required',
         ];
         $messages = [
             'quantity.min'        => 'quantity minimal 1',
@@ -26,16 +35,23 @@ class CartController extends Controller
                 ->withInput();
         }
 
-        $product = Product::find($req->product_id);
+        $product = Product::find($id);
         if (!$product){
             return redirect()->back()
                 ->withErrors('Product with id ' . $product->id . 'not found!');
         }
-        $cart = new Cart();
-        $cart->product_id = $product->id;
-        $cart->quantity = $req->quantity;
-        $cart->user_id = Auth::id();
-        $cart->save();
+        $sameCart = Cart::where('product_id' , '=' , $product->id)->first();
+        if ( !$sameCart ) {
+            $cart = new Cart();
+            $cart->product_id = $product->id;
+            $cart->quantity = $req->quantity;
+            $cart->user_id = Auth::id();
+            $cart->save();
+        } else {
+            $sameCart->quantity += $req->quantity;
+            $sameCart->save();
+        }
+        return redirect(RouteServiceProvider::CART);
     }
     public function delete ( $cartId ) {
         $cart = Cart::find($cartId);
@@ -73,7 +89,7 @@ class CartController extends Controller
         }
     }
     public function checkoutAll () {
-        $user = Auth::id();
+        $user = Auth::user();
         $carts = Cart::where( 'user_id' , '=' , $user->id );
         if ( count($carts) == 0 ) {
             return redirect()->back()
@@ -87,6 +103,7 @@ class CartController extends Controller
                 $transaction->save();
             }
             $carts->update(['checkout' => true]);
+            return redirect(RouteServiceProvider::TRANSACTION);
         }
     }
 }

@@ -10,10 +10,10 @@ class Transaction extends Model
         'price', 
     ];
     
-    public function User(){
-        return $this->hasOne('App\User');
+    public function user(){
+        return $this->belongsTo('App\User');
     }
-    public function Cart(){
+    public function cart(){
         return $this->hasOne('App\Cart');
     }
 }
