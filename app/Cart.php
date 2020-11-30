@@ -8,9 +8,14 @@ class Cart extends Model
 {
     protected $fillable = [
         'quantity', 
-        'price',
         'checkout',
     ];
+    
+    // default value
+    protected $attributes = [
+        'checkout' => false,
+    ];
+
     public function User(){
         return $this->hasOne('App\User');
     }

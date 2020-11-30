@@ -12,7 +12,7 @@ class TypeController extends Controller
     public function index() {
         $types = Type::all()->take(4);
         $loggedIn = Auth::check();
-        return $loggedIn ? redirect('/product/search') : view('welcome')->with('data',$types);
+        return $loggedIn ? redirect('/search') : view('welcome')->with('data',$types);
     }
     public function showCreateType() {
         $types = Type::all();
