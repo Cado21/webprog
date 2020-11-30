@@ -19,7 +19,9 @@ Auth::routes();
 
 Route::get('/', 'TypeController@index');
 Route::get('/search' , 'ProductController@search');
-Route::get('/product/detail/{id}' , 'ProductController@getById');
+Route::middleware(['role:admin,member'])->group( function () {
+    Route::get('/product/detail/{id}' , 'ProductController@getById');
+});
 
 Route::middleware(['role:admin'])->group( function(){
     Route::get('/product/add' , 'ProductController@showCreateProduct');
