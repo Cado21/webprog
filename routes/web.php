@@ -15,17 +15,29 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-
-Route::get('/', 'TypeController@getAll');
-
-Route::get('/product/search' , 'ProductController@search');
-Route::get('/product/detail/{id}' , 'ProductController@getById');
-
-// Route::get('/login', 'AuthController@showLoginForm');
-// Route::post('/login',  'AuthController@login');
-// Route::get('/logout',  'AuthController@logout');
-// Route::get('/register', 'AuthController@showRegisterForm');
-// Route::post('/register', 'AuthController@register');
-
 Auth::routes();
 
+Route::get('/', 'TypeController@index');
+Route::get('/search' , 'ProductController@search');
+Route::get('/product/detail/{id}' , 'ProductController@getById');
+
+Route::middleware(['role:admin'])->group( function(){
+    Route::get('/product/add' , 'ProductController@showCreateProduct');
+    Route::post('/product/add' , 'ProductController@create')->name('product.add');
+    
+    Route::get('/product/edit/{id}' , 'ProductController@showEditProduct');
+    Route::put('/product/edit/{id}' , 'ProductController@edit')->name('product.edit');
+    
+    Route::delete('/product/delete/{id}' , 'ProductController@delete')->name('product.delete');
+    Route::get('/type', 'TypeController@showCreateType');
+    Route::post('/type', 'TypeController@create');
+    
+    Route::get('/type/edit', 'TypeController@showEditType');
+    Route::put('/type/edit/{id}', 'TypeController@editTypeName')->name('type.edit_name');
+    
+    Route::delete('/type/delete/{id}', 'TypeController@delete')->name('type.delete');
+});
+
+Route::middleware(['role:member'])->group( function(){
+
+});

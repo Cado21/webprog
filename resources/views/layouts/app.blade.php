@@ -25,12 +25,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/global.css') }}" rel="stylesheet" type="text/css" >
+
+    @yield('styles')
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/product/search') }}">
+                <a class="navbar-brand" href="{{ Auth::check() ? url('/product/search') : url('/') }}">
                     {{ config('app.name', 'ReadAndWArite') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -40,10 +42,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @if (Request::is('product/*'))
-                            <form action="/product/search" class="search-bar-container">
+                        @if (!Request::is('/'))
+                            <form action="/search" class="search-bar-container">
                                 <input type="text" class="search-bar" name="query" placeholder="search for stationary" value={{ Request::get('query') }}>
-                                <button class="btn-primary">Search</button>
+                                <button class="btn btn-primary">Search</button>
                             </form>
                         @endif
                     </ul>
@@ -87,5 +89,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('footer-script')
 </body>
 </html>
