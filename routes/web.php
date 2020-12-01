@@ -21,7 +21,7 @@ Route::get(RouteServiceProvider::HOME, 'TypeController@index');
 Route::get(RouteServiceProvider::SEARCH , 'ProductController@search');
 Route::middleware(['auth'])->group( function () {
     Route::middleware(['role:admin|member'])->group( function () {
-        Route::get(RouteServiceProvider::PRODUCT . '/detail/{id}' , 'ProductController@getById');
+        Route::get(RouteServiceProvider::PRODUCT . '/detail/{id}' , 'ProductController@showProductDetail');
     });
     
     Route::middleware(['role:admin'])->group( function(){
@@ -42,6 +42,8 @@ Route::middleware(['auth'])->group( function () {
     
     Route::middleware(['role:member'])->group( function(){
         Route::get(RouteServiceProvider::CART , 'CartController@getAll');
-        Route::post(RouteServiceProvider::CART . '/add/{product_id}' , 'CartController@create');
+        Route::post(RouteServiceProvider::CART . '/add' , 'CartController@create');
+        Route::get(RouteServiceProvider::CART . '/update/{id}' , 'CartController@showEditCart');
+        Route::put(RouteServiceProvider::CART . '/update/{id}' , 'CartController@edit');
     });
 });

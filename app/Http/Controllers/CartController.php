@@ -9,7 +9,7 @@ use App\Transaction;
 use Auth;
 use Validator;
 use App\Providers\RouteServiceProvider;
-
+use App\Http\Controllers\ProductController;
 class CartController extends Controller
 {
     public function getAll( ) {
@@ -20,9 +20,10 @@ class CartController extends Controller
         ])->get();
         return view('cart')->with('data' , $carts );
     }
-    public function create( Request $req , $id ){
+    public function create( Request $req ){
         $rules = [
             'quantity' => 'required|min:1',
+            'product_id'=> 'required',
         ];
         $messages = [
             'quantity.min'        => 'quantity minimal 1',
@@ -35,7 +36,7 @@ class CartController extends Controller
                 ->withInput();
         }
 
-        $product = Product::find($id);
+        $product = Product::find($req->product_id);
         if (!$product){
             return redirect()->back()
                 ->withErrors('Product with id ' . $product->id . 'not found!');
@@ -63,8 +64,18 @@ class CartController extends Controller
             return redirect()->back();
         }
     }
+    public function showEditCart($cartId) {
+        $cart = Cart::find($cartId);
+        if (!$cart) {
+            return view('productCartUpdate')
+                ->withErrors('Cart with id ' . $cart->id . 'not found!');
+        } else {
+            return view('productCartUpdate')->with('data', $cart);
+        }
+    }
     public function edit( Request $req , $cartId ) {
         $cart = Cart::find($cartId);
+        dd($cart);
         if (!$cart) {
             return redirect()->back()
                 ->withErrors('Cart with id ' . $cart->id . 'not found!');
@@ -84,8 +95,9 @@ class CartController extends Controller
                     ->withInput();
             }
             $cart->quantity = $req->quantity;
-
-            return redirect()->back();
+            $cart->save();
+            dd ($cart);
+            return redirect(RouteServiceProvider::CART);
         }
     }
     public function checkoutAll () {

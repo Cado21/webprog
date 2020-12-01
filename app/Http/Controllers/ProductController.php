@@ -27,6 +27,10 @@ class ProductController extends Controller
     }
     public function getById ( $id ) {
         $data = Product::find($id);
+        return $data;
+    }
+    public function showProductDetail ($id) {
+        $data = $this->getById($id);
         return view('productDetail')->with(compact('data', $data));
     }
     public function showCreateProduct() {
