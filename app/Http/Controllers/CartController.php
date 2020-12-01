@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Cart;
 use App\Transaction;
+use App\TransactionDetail;
 use Auth;
 use Validator;
 use App\Providers\RouteServiceProvider;
@@ -16,7 +17,6 @@ class CartController extends Controller
         $user = Auth::user();
         $carts = Cart::where([
             ['user_id' ,'=', $user->id],
-            ['checkout' ,'=', false],
         ])->get();
         return view('cart')->with('data' , $carts );
     }
@@ -61,7 +61,7 @@ class CartController extends Controller
                 ->withErrors('Cart with id ' . $cart->id . 'not found!');
         } else {
             $cart->delete();
-            return redirect()->back();
+            return redirect()->back()->with('deletedData', $cart);
         }
     }
     public function showEditCart($cartId) {
@@ -75,14 +75,12 @@ class CartController extends Controller
     }
     public function edit( Request $req , $cartId ) {
         $cart = Cart::find($cartId);
-        dd($cart);
         if (!$cart) {
             return redirect()->back()
                 ->withErrors('Cart with id ' . $cart->id . 'not found!');
         } else {
             $rules = [
                 'quantity'          => 'required|min:1',
-                'product_id'        => 'required',
             ];
             $messages = [
                 'quantity.min'        => 'quantity minimal 1',
@@ -96,25 +94,28 @@ class CartController extends Controller
             }
             $cart->quantity = $req->quantity;
             $cart->save();
-            dd ($cart);
             return redirect(RouteServiceProvider::CART);
         }
     }
-    public function checkoutAll () {
+    public function checkout () {
         $user = Auth::user();
-        $carts = Cart::where( 'user_id' , '=' , $user->id );
+        $carts = Cart::where( 'user_id' , '=' , $user->id )->get();
         if ( count($carts) == 0 ) {
             return redirect()->back()
                 ->withErrors('Your Cart is empty!');
         } else {
-            foreach ( $carts as $cartItem ) {
+            foreach ( $carts as $cart ) {
+                $transactionDetail = new TransactionDetail();
+                $transactionDetail->product_id = $cart->product->id;
+                $transactionDetail->price = $cart->product->price;
+                $transactionDetail->quantity = $cart->quantity;
+                $transactionDetail->save();
+
                 $transaction = new Transaction();
                 $transaction->user_id = $user->id;
-                $transaction->cart_id = $cart->cart_id;
-                $transaction->price = $cart->price;
+                $transaction->transaction_detail_id = $transactionDetail->id;
                 $transaction->save();
             }
-            $carts->update(['checkout' => true]);
             return redirect(RouteServiceProvider::TRANSACTION);
         }
     }

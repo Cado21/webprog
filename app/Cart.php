@@ -8,12 +8,10 @@ class Cart extends Model
 {
     protected $fillable = [
         'quantity', 
-        'checkout',
     ];
     
     // default value
     protected $attributes = [
-        'checkout' => false,
     ];
 
     public function user(){
@@ -21,8 +19,5 @@ class Cart extends Model
     }
     public function product(){
         return $this->belongsTo('App\Product');
-    }
-    public function transaction() {
-        return $this->belongsTo('App\Transaction');
     }
 }

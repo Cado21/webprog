@@ -16,8 +16,7 @@ class Product extends Model
     public function type(){
         return $this->belongsTo('App\Type');
     }
-    public function cart(){
-        return $this->hasMany('App\Cart');
+    public function transactionDetail(){
+        return $this->belongsTo('App\TransactionDetail');
     }
-    
 }

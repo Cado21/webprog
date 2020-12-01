@@ -42,8 +42,12 @@ Route::middleware(['auth'])->group( function () {
     
     Route::middleware(['role:member'])->group( function(){
         Route::get(RouteServiceProvider::CART , 'CartController@getAll');
-        Route::post(RouteServiceProvider::CART . '/add' , 'CartController@create');
+        Route::post(RouteServiceProvider::CART . '/add' , 'CartController@create')->name('cart.add');
         Route::get(RouteServiceProvider::CART . '/update/{id}' , 'CartController@showEditCart');
-        Route::put(RouteServiceProvider::CART . '/update/{id}' , 'CartController@edit');
+        Route::put(RouteServiceProvider::CART . '/update/{id}' , 'CartController@edit')->name('cart.edit_quantity');
+        Route::delete(RouteServiceProvider::CART . '/delete/{id}' , 'CartController@delete')->name('cart.delete');
+        Route::post(RouteServiceProvider::CART . '/checkout' , 'CartController@checkout')->name('cart.checkout');
+
+        Route::get(RouteServiceProvider::TRANSACTION, 'TransactionController@getAll');
     });
 });

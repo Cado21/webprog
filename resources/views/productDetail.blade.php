@@ -39,7 +39,7 @@
                             <a href="/product/edit/{{$data->id}}" class="btn btn-primary">edit</a>
                         @endcan
                         @can('isMember')
-                        <form action="/cart/add" method="post">
+                        <form action={{ route('cart.add') }} method="post">
                             @csrf
                             <input type="number" name="quantity" value="1" min="1">
                             <input type="hidden" name="product_id" value={{$data->id}}>

@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="container">
+        @if (Session::has('deletedData'))
+            <div class="alert alert-success">
+                <div>{{ Session::get('deletedData') }}</div>
+            </div>
+        @endif
         @if (count($data))
             @foreach ($data as $cartItem)
                 <div class="cart-item-container">
@@ -21,12 +26,19 @@
                     ?>
                     <div>Total Rp{{$subTotal}}</div>
                     <div class="right-btn-container">
-                        <a href="/cart/update/{{$cartItem->id}}" class="btn btn-primary">Edit Item</a>
-                        <a href="/cart/delete/{{$cartItem->id}}" class="btn btn-danger">Delete Item</a>
+                        <a href="/cart/update/{{$cartItem->id}}" class="btn btn-primary mr-2">Edit Item</a>
+                        <form action={{route('cart.delete', $cartItem->id)}} method="post">
+                            @csrf
+                            @method('delete')
+                            <button href="/cart/delete/{{$cartItem->id}}" class="btn btn-danger">Delete Item</button>
+                        </form>
                     </div>
                 </div>
             @endforeach
-            <a href="/cart/checkout" class="btn btn-danger">Checkout</a>
+            <form action={{route('cart.checkout')}} method="post">
+                @csrf
+                <button class="btn btn-danger">Checkout</button>
+            </form>
             
         @else
             <div>Do Some Transaction to see your products in cart</div>
