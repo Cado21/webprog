@@ -14,9 +14,8 @@ use App\Providers\RouteServiceProvider;
 class TransactionController extends Controller
 {
     public function getAll() {
-        $loggedUser = Auth::user();
-        $user = User::find($loggedUser->id);
-        dd ( $user->transactions );
+        $user = Auth::user();
+        $transactions = Transaction::where('user_id' , '=', $user->id )->get();
         return view('transaction')->with('data' , $transactions );
     }
 }
