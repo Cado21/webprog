@@ -1,11 +1,18 @@
 @extends('layouts.app')
 
 @section('styles')
-    <link href="{{ asset('css/productDetail.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ asset('css/product.css') }}" rel="stylesheet" type="text/css" >
 @endsection
 
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <div>{{$error}}</div>
+                @endforeach
+            </div>
+        @endif
         @if (Session::has('editedData'))
             <div class="alert alert-success">
                 <div>{{ Session::get('deletedData') }}</div>
@@ -32,7 +39,12 @@
                             <a href="/product/edit/{{$data->id}}" class="btn btn-primary">edit</a>
                         @endcan
                         @can('isMember')
-                            add qty , add to cart with input field
+                        <form action={{ route('cart.add') }} method="post">
+                            @csrf
+                            <input type="number" name="quantity" value="1" >
+                            <input type="hidden" name="product_id" value={{$data->id}}>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </form>
                         @endcan
                     @endif
                 </div>

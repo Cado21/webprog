@@ -39,4 +39,10 @@ class User extends Authenticatable
     protected $casts = [
 
     ];
+    public function carts(){
+        return $this->hasMany('App\Cart');
+    }
+    public function transactions(){
+        return $this->hasMany('App\Transaction');
+    }
 }

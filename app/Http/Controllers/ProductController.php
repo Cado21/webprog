@@ -7,6 +7,8 @@ use App\Product;
 use App\Type;
 use Validator;
 use Illuminate\Support\Facades\File;
+use App\Providers\RouteServiceProvider;
+
 class ProductController extends Controller
 {
     
@@ -25,6 +27,10 @@ class ProductController extends Controller
     }
     public function getById ( $id ) {
         $data = Product::find($id);
+        return $data;
+    }
+    public function showProductDetail ($id) {
+        $data = $this->getById($id);
         return view('productDetail')->with(compact('data', $data));
     }
     public function showCreateProduct() {
@@ -119,7 +125,7 @@ class ProductController extends Controller
         } else {
             // deleteLocalImage($product->image);
             $product->delete();
-            return redirect('/product/search');
+            return redirect( RouteServiceProvider::PRODUCT . '/search' );
         }
 
 

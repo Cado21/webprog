@@ -13,7 +13,10 @@ class Product extends Model
         'image',
         'description',
     ];
-    public function Type(){
+    public function type(){
         return $this->belongsTo('App\Type');
+    }
+    public function transactionDetail(){
+        return $this->belongsTo('App\TransactionDetail');
     }
 }

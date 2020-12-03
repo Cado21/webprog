@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\File;
 use App\Type;
 use Auth;
 use Validator;
+use App\Providers\RouteServiceProvider;
 class TypeController extends Controller
 {
     public function index() {
         $types = Type::all()->take(4);
         $loggedIn = Auth::check();
-        return $loggedIn ? redirect('/search') : view('welcome')->with('data',$types);
+        return $loggedIn ? redirect(RouteServiceProvider::SEARCH) : view('welcome')->with('data',$types);
     }
     public function showCreateType() {
         $types = Type::all();
@@ -40,8 +41,8 @@ class TypeController extends Controller
         $validator = Validator::make($req->all(), $rules, $messages);
         if ($validator->fails()) {
             return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $typeIsFound = Type::where( 'name' , '=' , $req->name )->first();

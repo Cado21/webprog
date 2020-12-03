@@ -19,27 +19,35 @@ Auth::routes();
 
 Route::get(RouteServiceProvider::HOME, 'TypeController@index');
 Route::get(RouteServiceProvider::SEARCH , 'ProductController@search');
-Route::middleware(['role:admin|member'])->group( function () {
-    Route::get('/product/detail/{id}' , 'ProductController@getById');
-});
+Route::middleware(['auth'])->group( function () {
+    Route::middleware(['role:admin|member'])->group( function () {
+        Route::get(RouteServiceProvider::PRODUCT . '/detail/{id}' , 'ProductController@showProductDetail');
+    });
+    
+    Route::middleware(['role:admin'])->group( function(){
+        Route::get(RouteServiceProvider::PRODUCT . '/add' , 'ProductController@showCreateProduct');
+        Route::post(RouteServiceProvider::PRODUCT . '/add' , 'ProductController@create')->name('product.add');
+        Route::get(RouteServiceProvider::PRODUCT . '/edit/{id}' , 'ProductController@showEditProduct');
+        Route::put(RouteServiceProvider::PRODUCT . '/edit/{id}' , 'ProductController@edit')->name('product.edit');
+        
+        Route::delete(RouteServiceProvider::PRODUCT . '/delete/{id}' , 'ProductController@delete')->name('product.delete');
+        Route::get(RouteServiceProvider::TYPE , 'TypeController@showCreateType');
+        Route::post(RouteServiceProvider::TYPE , 'TypeController@create');
+        
+        Route::get(RouteServiceProvider::TYPE . '/edit', 'TypeController@showEditType');
+        Route::put(RouteServiceProvider::TYPE . '/edit/{id}', 'TypeController@editTypeName')->name('type.edit_name');
+        
+        Route::delete(RouteServiceProvider::TYPE . '/delete/{id}', 'TypeController@delete')->name('type.delete');
+    });
+    
+    Route::middleware(['role:member'])->group( function(){
+        Route::get(RouteServiceProvider::CART , 'CartController@getAll');
+        Route::post(RouteServiceProvider::CART . '/add' , 'CartController@create')->name('cart.add');
+        Route::get(RouteServiceProvider::CART . '/update/{id}' , 'CartController@showEditCart');
+        Route::put(RouteServiceProvider::CART . '/update/{id}' , 'CartController@edit')->name('cart.edit_quantity');
+        Route::delete(RouteServiceProvider::CART . '/delete/{id}' , 'CartController@delete')->name('cart.delete');
+        Route::post(RouteServiceProvider::CART . '/checkout' , 'CartController@checkout')->name('cart.checkout');
 
-Route::middleware(['role:admin'])->group( function(){
-    Route::get('/product/add' , 'ProductController@showCreateProduct');
-    Route::post('/product/add' , 'ProductController@create')->name('product.add');
-    
-    Route::get('/product/edit/{id}' , 'ProductController@showEditProduct');
-    Route::put('/product/edit/{id}' , 'ProductController@edit')->name('product.edit');
-    
-    Route::delete('/product/delete/{id}' , 'ProductController@delete')->name('product.delete');
-    Route::get('/type', 'TypeController@showCreateType');
-    Route::post('/type', 'TypeController@create');
-    
-    Route::get('/type/edit', 'TypeController@showEditType');
-    Route::put('/type/edit/{id}', 'TypeController@editTypeName')->name('type.edit_name');
-    
-    Route::delete('/type/delete/{id}', 'TypeController@delete')->name('type.delete');
-});
-
-Route::middleware(['role:member'])->group( function(){
-
+        Route::get(RouteServiceProvider::TRANSACTION, 'TransactionController@getAll');
+    });
 });

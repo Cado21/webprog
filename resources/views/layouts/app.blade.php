@@ -79,6 +79,10 @@
                                     </form>
                                 </div>
                             </li>
+                            @can('isMember')
+                                <a href="/cart" class="btn btn-primary mr-2">Cart</a>
+                                <a href="/transaction" class="btn btn-primary">History</a>
+                            @endcan
                         @endguest
                     </ul>
                 </div>
