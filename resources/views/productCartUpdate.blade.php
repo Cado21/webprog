@@ -30,7 +30,7 @@
                         <form action={{ route('cart.edit_quantity' , $data->id )}} method="post">
                             @csrf
                             @method('put')
-                            <input type="number" name="quantity" value="{{$data->quantity}}" min="1">
+                            <input type="number" name="quantity" value="{{$data->quantity}}" >
                             <button class="btn btn-dark">Update Cart</button>
                         </form>
                         @endcan

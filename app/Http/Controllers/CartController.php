@@ -21,8 +21,13 @@ class CartController extends Controller
         return view('cart')->with('data' , $carts );
     }
     public function create( Request $req ){
+        $product = Product::find($req->product_id);
+        if (!$product){
+            return redirect()->back()
+                ->withErrors('Product with id ' . $product->id . 'not found!');
+        }
         $rules = [
-            'quantity' => 'required|min:1',
+            'quantity' => 'required|integer|min:1' . '|max:' . $product->stock,
             'product_id'=> 'required',
         ];
         $messages = [
@@ -34,12 +39,6 @@ class CartController extends Controller
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
-        }
-
-        $product = Product::find($req->product_id);
-        if (!$product){
-            return redirect()->back()
-                ->withErrors('Product with id ' . $product->id . 'not found!');
         }
         $sameCart = Cart::where('product_id' , '=' , $product->id)->first();
         if ( !$sameCart ) {
@@ -80,14 +79,14 @@ class CartController extends Controller
                 ->withErrors('Cart with id ' . $cart->id . 'not found!');
         } else {
             $rules = [
-                'quantity'          => 'required|min:1',
+                'quantity' => 'required|integer|min:1' . '|max:' . $cart->product->stock,
             ];
             $messages = [
                 'quantity.min'        => 'quantity minimal 1',
+                'quantity.max'        => 'quantity minimal '.$cart->product->stock,
             ];
-            
             $validator = Validator::make($req->all(), $rules, $messages);
-            if ($validator->fails()) {
+            if ($validator->fails()) { 
                 return redirect()->back()
                     ->withErrors($validator)
                     ->withInput();

@@ -7,9 +7,16 @@
 @section('content')
     <div class="container">
         @if (count($data))
+            
             @foreach ($data as $transaction)
-                <div class="mb-5"> {{ $transaction->created_at }}</div>
-                <div class="mb-5"> {{ $transaction->details }}</div>
+            <div class="transaction-container">
+                <div class="date"> {{ $transaction->created_at }}</div>
+                <div class="transaction-detail-container"> 
+                    @foreach ($transaction->details as $detail)
+                        <div class="m-2">{{$detail}}</div>
+                    @endforeach
+                </div>
+            </div>
             @endforeach
             
         @else
