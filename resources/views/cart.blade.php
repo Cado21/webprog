@@ -6,6 +6,13 @@
 
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <div>{{$error}}</div>
+                @endforeach
+            </div>
+        @endif
         @if (Session::has('deletedData'))
             <div class="alert alert-success">
                 <div>{{ Session::get('deletedData') }}</div>

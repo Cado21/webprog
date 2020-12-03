@@ -21,8 +21,13 @@ class CartController extends Controller
         return view('cart')->with('data' , $carts );
     }
     public function create( Request $req ){
+        $product = Product::find($req->product_id);
+        if (!$product){
+            return redirect()->back()
+                ->withErrors('Product with id ' . $product->id . 'not found!');
+        }
         $rules = [
-            'quantity' => 'required|min:1',
+            'quantity' => 'required|integer|min:1' . '|max:' . $product->stock,
             'product_id'=> 'required',
         ];
         $messages = [
@@ -34,12 +39,6 @@ class CartController extends Controller
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
-        }
-
-        $product = Product::find($req->product_id);
-        if (!$product){
-            return redirect()->back()
-                ->withErrors('Product with id ' . $product->id . 'not found!');
         }
         $sameCart = Cart::where('product_id' , '=' , $product->id)->first();
         if ( !$sameCart ) {
@@ -80,14 +79,14 @@ class CartController extends Controller
                 ->withErrors('Cart with id ' . $cart->id . 'not found!');
         } else {
             $rules = [
-                'quantity'          => 'required|min:1',
+                'quantity' => 'required|integer|min:1' . '|max:' . $cart->product->stock,
             ];
             $messages = [
                 'quantity.min'        => 'quantity minimal 1',
+                'quantity.max'        => 'quantity minimal '.$cart->product->stock,
             ];
-            
             $validator = Validator::make($req->all(), $rules, $messages);
-            if ($validator->fails()) {
+            if ($validator->fails()) { 
                 return redirect()->back()
                     ->withErrors($validator)
                     ->withInput();
@@ -99,23 +98,36 @@ class CartController extends Controller
     }
     public function checkout () {
         $user = Auth::user();
-        $carts = Cart::where( 'user_id' , '=' , $user->id )->get();
-        if ( count($carts) == 0 ) {
+        $carts = Cart::where( 'user_id' , '=' , $user->id );
+        if ( count($carts->get()) == 0 ) {
             return redirect()->back()
                 ->withErrors('Your Cart is empty!');
         } else {
-            foreach ( $carts as $cart ) {
+            foreach ( $carts->get() as $cart ) {
+                $product = Product::find($cart->product->id);
+                if (  $cart->quantity > $product->stock ){
+                    return redirect()->back()
+                        ->withErrors('Please update your cart quantity, because your quantity reach our product stock!');
+                }
+            }
+            $transaction = new Transaction();
+            $transaction->user_id = $user->id;
+            $transaction->save();
+
+            foreach ( $carts->get() as $cart ) {
+                $product = Product::find($cart->product->id);
+                $product->stock = $product->stock - $cart->quantity;
+                
                 $transactionDetail = new TransactionDetail();
                 $transactionDetail->product_id = $cart->product->id;
+                $transactionDetail->transaction_id = $transaction->id;
                 $transactionDetail->price = $cart->product->price;
                 $transactionDetail->quantity = $cart->quantity;
-                $transactionDetail->save();
 
-                $transaction = new Transaction();
-                $transaction->user_id = $user->id;
-                $transaction->transaction_detail_id = $transactionDetail->id;
-                $transaction->save();
+                $transactionDetail->save();
+                $product->save();
             }
+            $carts->delete();
             return redirect(RouteServiceProvider::TRANSACTION);
         }
     }
