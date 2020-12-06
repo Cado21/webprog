@@ -17,7 +17,6 @@ html, body {
 }
 .search-bar-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: row;
     width: 100%;
@@ -26,11 +25,13 @@ html, body {
 
 .search-bar {
     padding: 5px;
+    max-width: 500px;
     width: 100%;
     border: none;
     color: black;
     border: 2px solid lightgray;
     border-radius: 5px;
+    margin-right: 10px;
 }
 
 .nav-right{
