@@ -41,14 +41,12 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
                         @if (!Request::is('/'))
                             <form action="/search" class="search-bar-container">
                                 <input type="text" class="search-bar" name="query" placeholder="search for stationary" value={{ Request::get('query') }}>
                                 <button class="btn btn-primary">Search</button>
                             </form>
                         @endif
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

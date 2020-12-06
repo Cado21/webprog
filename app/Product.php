@@ -17,6 +17,6 @@ class Product extends Model
         return $this->belongsTo('App\Type');
     }
     public function transactionDetail(){
-        return $this->belongsTo('App\TransactionDetail');
+        return $this->hasOne('App\TransactionDetail');
     }
 }
