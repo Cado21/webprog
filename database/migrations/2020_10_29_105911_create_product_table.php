@@ -18,7 +18,7 @@ class CreateProductTable extends Migration
             $table->string('name')->unique();
             $table->integer('stock');
             $table->double('price', 10, 2);
-            $table->mediumText('image')->nullable();
+            $table->longText('image')->nullable();
             $table->text('description');
             $table->timestamps();
             
