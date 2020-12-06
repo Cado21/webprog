@@ -22,10 +22,10 @@ class AuthController extends Controller {
         ];
  
         $messages = [
-            'email.required'        => 'Email wajib diisi',
-            'email.email'           => 'Email tidak valid',
-            'password.required'     => 'Password wajib diisi',
-            'password.string'       => 'Password harus berupa string'
+            'email.required'        => 'Please Fill The Email',
+            'email.email'           => 'Email is not valid',
+            'password.required'     => 'Please Fill The Email',
+            'password.string'       => 'Password Must in string'
         ];
 
         $validator = Validator::make($req->all(), $rules, $messages);
@@ -54,21 +54,20 @@ class AuthController extends Controller {
     }
     public function register( Request $req) {
         $rules = [
-            'name'                  => 'required|min:3|max:35',
+            'name'                  => 'required|min:5',
             'email'                 => 'required|email|unique:users,email',
-            'password'              => 'required|min:8|same:confirm-password',
+            'password'              => 'required|min:6|alpha_num',
             'confirm-password'      => 'required|same:password',
         ];
  
         $messages = [
-            'name.required'         => 'Nama Lengkap wajib diisi',
-            'name.min'              => 'Nama lengkap minimal 3 karakter',
-            'name.max'              => 'Nama lengkap maksimal 35 karakter',
-            'email.required'        => 'Email wajib diisi',
-            'email.email'           => 'Email tidak valid',
-            'email.unique'          => 'Email sudah terdaftar',
-            'password.min'          => 'Password minimal 8 karakter',
-            'password.same'         => 'Password does not match with comfirm password',
+            'name.required'         => 'Please Fill The Name123s',
+            'name.min'              => 'name must be more than 4',
+            'email.required'        => 'Please Fill The Email',
+            'email.email'           => 'Email is not valid',
+            'email.unique'          => 'please use diffrent email',
+            'password.min'          => 'must be more than 5 Password',
+            'password.alpha_num'    => 'Password can only contain number and alphabet',
             'confirm-password.same' => 'Password Confirmation should match the Password',
         ];
         $validator = Validator::make($req->all(), $rules, $messages);
