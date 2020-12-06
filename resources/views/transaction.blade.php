@@ -28,7 +28,7 @@
             </table>
 
         @else
-            You Got No History
+            You don't have any transaction
         @endif
 
 
