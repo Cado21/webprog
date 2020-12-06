@@ -1,26 +1,36 @@
 @extends('layouts.app')
 
 @section('styles')
-    {{-- <link href="{{ asset('css/transaction.css') }}" rel="stylesheet" type="text/css" > --}}
 @endsection
 
 @section('content')
     <div class="container">
         @if (count($data))
-            
-            @foreach ($data as $transaction)
-            <div class="transaction-container">
-                <div class="date"> {{ $transaction->created_at }}</div>
-                <div class="transaction-detail-container"> 
-                    @foreach ($transaction->details as $detail)
-                        <div class="m-2">{{$detail}}</div>
-                    @endforeach
-                </div>
-            </div>
-            @endforeach
-            
+            <table class="table">
+                @foreach ($data as $transaction)
+                    <thead class="thead-dark">
+                        <tr>
+                            <th colspan="3">{{ $transaction->created_at }}</th>
+                            <th colspan="1">Total: Rp{{ number_format($transaction->total, 0, '.', '.') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($transaction->details as $detail)
+                            <tr>
+                                <th>{{ $detail->product->name }}</th>
+                                <td>Rp{{ number_format($detail->price, 0, '.', '.') }}</td>
+                                <td>Quantity: {{ $detail->quantity }}</td>
+                                <td>Sub Total: Rp{{ number_format($detail->subtotal, 0, '.', '.') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                @endforeach
+            </table>
+
         @else
             You Got No History
         @endif
+
+
     </div>
 @endsection

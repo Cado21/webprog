@@ -57,7 +57,7 @@ class CartController extends Controller
         $cart = Cart::find($cartId);
         if (!$cart) {
             return redirect()->back()
-                ->withErrors('Cart with id ' . $cart->id . 'not found!');
+                ->withErrors('Cart with id ' . $cartId . ' not found!');
         } else {
             $cart->delete();
             return redirect()->back()->with('deletedData', $cart);

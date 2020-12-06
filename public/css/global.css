@@ -15,17 +15,18 @@ html, body {
     padding: 10px;
     min-height: 60px;
 }
-.nav-search-container {
+.search-bar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
     width: 100%;
+    padding: 0 20px;
 }
 
 .search-bar {
     padding: 5px;
-    width: 500px;
+    width: 100%;
     border: none;
     color: black;
     border: 2px solid lightgray;
