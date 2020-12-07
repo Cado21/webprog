@@ -24,12 +24,12 @@
                 @endif
                 @if (Session::has('deletedData'))
                     <div class="alert alert-success">
-                        <div>{{ Session::get('deletedData') }}</div>
+                        <div>Stationary Type: "{{Session::get('deletedData')->name}}" Deleted Successfully!</div>
                     </div>
                 @endif
                 @if (Session::has('editedData'))
                     <div class="alert alert-success">
-                        <div>{{ Session::get('editedData') }}</div>
+                        <div>Stationary type name successfully changed to "{{ Session::get('editedData')->name }}"</div>
                     </div>
                 @endif
 
