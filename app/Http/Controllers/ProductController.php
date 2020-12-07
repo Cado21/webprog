@@ -110,7 +110,8 @@ class ProductController extends Controller
         $typeIsFound = Type::find($req->type);
         if (!$typeIsFound) {
             return redirect()->back()
-                ->withErrors('Stationary type doesn\'t Exist');
+                ->withErrors('Stationary type doesn\'t Exist')
+                ->withInput();
         }
 
         $product = new Product();
