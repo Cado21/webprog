@@ -38,18 +38,17 @@
                     <tr>
                         <th scope="row">{{ ++$i }}</th>
                         <td>{{ $type->name }}</td>
-                        <td>
+                        <td style="display: flex;">
                             <form action={{ route('type.edit_name' , $type->id )}} method="POST">
                                 @csrf
                                 @method("put")
                                 <input type="text" name="name">
                                 <button class="btn btn-primary" method="submit">Edit</button>
                             </form>
-
-                            <form action={{ route('type.delete' , $type->id )}} method="POST">
+                            <form action={{ route('type.delete' , $type->id )}} method="POST" class="ml-1">
                                 @csrf
                                 @method("delete")
-                                <button class="btn btn-primary" method="">Delete</button>
+                                <button class="btn btn-danger" method="">Delete</button>
                             </form>
                         </td>
                     </tr>
