@@ -10,6 +10,11 @@
         
             @if (Auth::check())
                 @can('isAdmin')
+                    @if (Session::has('deletedData'))
+                        <div class="alert alert-success">
+                            <div>"{{Session::get('deletedData')->name}}" Deleted Successfully!</div>
+                        </div>
+                    @endif
                     <a href="/product/add" class="btn-container btn btn-primary">Add New Stationary</a>
                     <a href="/type" class="btn-container btn btn-primary">Add New Stationary Type</a>
                     <a href="/type/edit" class="btn-container btn btn-primary">Edit Stationary Type</a>

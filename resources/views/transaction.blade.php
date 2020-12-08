@@ -17,7 +17,7 @@
                     <tbody>
                         @foreach ($transaction->details as $detail)
                             <tr>
-                                <th>{{ $detail->product->name }}</th>
+                                <th>{{ $detail->name }}</th>
                                 <td>Rp{{ number_format($detail->price, 0, '.', '.') }}</td>
                                 <td>Quantity: {{ $detail->quantity }}</td>
                                 <td>Sub Total: Rp{{ number_format($detail->subtotal, 0, '.', '.') }}</td>

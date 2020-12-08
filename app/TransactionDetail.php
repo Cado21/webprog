@@ -8,12 +8,12 @@ class TransactionDetail extends Model
 {
     protected $fillable = [
         'quantity',
-        'price'
+        'price',
+        'name', 
+        'image',
+        'description',
     ];
     
-    public function product(){
-        return $this->belongsTo('App\Product');
-    }
     public function transaction() {
         return $this->belongsTo('App\Transaction');
     }

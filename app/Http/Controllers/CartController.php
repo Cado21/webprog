@@ -121,15 +121,16 @@ class CartController extends Controller
             foreach ( $carts->get() as $cart ) {
                 $product = Product::find($cart->product->id);
                 $product->stock = $product->stock - $cart->quantity;
-                
+        
                 $transactionDetail = new TransactionDetail();
-                $transactionDetail->product_id = $cart->product->id;
-                $transactionDetail->transaction_id = $transaction->id;
-                $transactionDetail->price = $cart->product->price;
-                $transactionDetail->quantity = $cart->quantity;
+                $transactionDetail->name                = $cart->product->name;
+                $transactionDetail->image               = $cart->product->image;
+                $transactionDetail->description         = $cart->product->description;
+                $transactionDetail->transaction_id      = $transaction->id;
+                $transactionDetail->price               = $cart->product->price;
+                $transactionDetail->quantity            = $cart->quantity;
 
                 $transactionDetail->save();
-                $product->save();
             }
             $carts->delete();
             return redirect(RouteServiceProvider::TRANSACTION);

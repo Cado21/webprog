@@ -25,13 +25,9 @@ class ProductController extends Controller
         }
         return view('search')->with(compact('data', $data));
     }
-    public function getById ( $id ) {
-        $data = Product::find($id);
-        return $data;
-    }
     public function showProductDetail ($id) {
-        $data = $this->getById($id);
-        return view('productDetail')->with(compact('data', $data));
+        $data = Product::find($id);
+        return $data ? view('productDetail')->with(compact('data', $data)) : redirect()->back();
     }
     public function showCreateProduct() {
         $types = Type::all();
@@ -147,7 +143,7 @@ class ProductController extends Controller
         } else {
             // deleteLocalImage($product->image);
             $product->delete();
-            return redirect( RouteServiceProvider::PRODUCT . '/search' );
+            return redirect( RouteServiceProvider::SEARCH )->with('deletedData' , $product );
         }
 
 

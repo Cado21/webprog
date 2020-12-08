@@ -17,14 +17,13 @@ class CreateTransactionDetailsTable extends Migration
             $table->id();
             $table->integer('quantity');
             $table->double('price', 10, 2);
-
+            $table->string('name')->unique();
+            $table->longText('image')->nullable();
+            $table->text('description');
             $table->timestamps();
 
             $table->unsignedBigInteger('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions');
-
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

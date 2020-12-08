@@ -32,13 +32,14 @@ class TransactionSeeder extends Seeder
                 $product->stock = $product->stock - $qty;
                 
                 $transactionDetail = new TransactionDetail();
-                $transactionDetail->product_id = $product->id;
-                $transactionDetail->transaction_id = $transaction->id;
-                $transactionDetail->price = $product->price;
-                $transactionDetail->quantity = $qty;
+                $transactionDetail->name            = $product->name;
+                $transactionDetail->image           = $product->image;
+                $transactionDetail->description     = $product->description;
+                $transactionDetail->transaction_id  = $transaction->id;
+                $transactionDetail->price           = $product->price;
+                $transactionDetail->quantity        = $qty;
     
                 $transactionDetail->save();
-                $product->save();
             }
         }
     }
