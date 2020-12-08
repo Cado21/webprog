@@ -7,10 +7,10 @@
     <div class="container">
         @if (Session::has('createdData'))
             <div class="alert alert-success">
-                <div>{{ Session::get('createdData') }}</div>
+                <div>"{{ Session::get('createdData')->name }}" successfully added to Stationary</div>
             </div>
         @endif
-        <form action={{ route('product.add')}} method="post" enctype="multipart/form-data">
+        <form action={{ route('product.add') }} method="post" enctype="multipart/form-data">
             @csrf
             <div class="img-preview-container" style="display:none;">
                 <img alt="image-preview" id="img-preview" class="img-preview">
@@ -26,19 +26,20 @@
                 <div class="label">Browse Photos: </div>
                 <input type="file" name="image" accept="image/*" onchange="loadFile(e)">
             </div>
-            
+
             @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="input-group mb-3">
-                <input type="text" name="name" class="form-control" placeholder="Stationary Name">
+                <input type="text" name="name" class="form-control" placeholder="Stationary Name" value="{{ old('name') }}">
             </div>
 
             @error('description')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="input-group mb-3">
-                <input type="text" name="description" class="form-control" placeholder="Stationary Description">
+                <input type="text" name="description" class="form-control" placeholder="Stationary Description"
+                    value="{{ old('description') }}">
             </div>
 
             <div class="input-group mb-3">
@@ -47,7 +48,9 @@
                 </div>
                 <select class="custom-select" name="type">
                     @foreach ($data as $type)
-                        <option value={{$type->id}}>{{$type->name}}</option>
+                        <option value={{ $type->id }} {{ old('type') == $type->id ? 'selected' : '' }}>
+                            {{ $type->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -56,14 +59,14 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="input-group mb-3">
-                <input type="number" name="stock" class="form-control" placeholder="Stock">
+                <input type="number" name="stock" class="form-control" placeholder="Stock" value="{{ old('stock') }}">
             </div>
 
             @error('price')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="input-group mb-3">
-                <input type="number" name="price" class="form-control" placeholder="Price" min="1" max="99999999">
+                <input type="number" name="price" class="form-control" placeholder="Price" value="{{ old('price') }}">
             </div>
 
             <button type="submit" class="btn btn-primary">Add New Stationary</button>

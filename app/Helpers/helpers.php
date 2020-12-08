@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\File;
 
 function generateUniqueFileName( $filename ) {
     $name = preg_replace('/\s+/', '_', $filename);
+    $name = strtolower($name);
     return date('Y-m-d-H:i:s') . "-" . addslashes($name);
 }
 

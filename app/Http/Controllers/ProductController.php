@@ -44,14 +44,21 @@ class ProductController extends Controller
     public function edit( Request $req , $id ) {
         $rules = [
             'name' => 'required|min:5',
-            'description' => 'required',
+            'description' => 'required|min:10',
             'stock' => 'required',
             'price' => 'required',
+            'stock' => 'required|integer|min:1',
+            'price' => 'required|integer|min:5001'
         ];
         $messages = [
-            'image.required'        => 'image wajib diisi',
-            'name.required'         => 'name wajib diisi',
-            'description.required'  => 'description wajib diiisi',
+            'name.required'         => 'Please Fill The Name',
+            'description.required'  => 'Please Fill The Description',
+            'stock.required'        =>'Please Fill Stock',
+            'price.required'        =>'Please Fill Price',
+            'name.min'              => 'name lengeth minimum 5 characters',
+            'description.min'       => 'description minimum 10 characters',
+            'stock.min'             => 'must be more than 0',
+            'price.min'             => 'must be more than 5000'
         ];
         
         $validator = Validator::make($req->all(), $rules, $messages);
@@ -73,17 +80,24 @@ class ProductController extends Controller
     public function create( Request $req ) {
         $rules = [
             'image' => 'required',
-            'name' => 'required|min:5',
-            'description' => 'required',
+            'name' => 'required|min:5|unique:products,name',
+            'description' => 'required|min:10',
             'type' => 'required',
-            'stock' => 'required',
-            'price' => 'required',
+            'stock' => 'required|integer|min:1',
+            'price' => 'required|integer|min:5001'
         ];
         $messages = [
-            'image.required'        => 'image wajib diisi',
-            'name.required'         => 'name wajib diisi',
-            'description.required'  => 'description wajib diiisi',
-            'type.required'         => 'type wajib diisi',
+            'image.required'        => 'Please Insert The Image',
+            'name.required'         => 'Please Fill The Name',
+            'name.unique'         => 'Please Insert diffrent name',
+            'description.required'  => 'Please Fill The Description',
+            'type.required'         => 'Please Fill The Type',
+            'stock.required'        =>'Please Fill Stock',
+            'price.required'        =>'Please Fill Price',
+            'name.min'              => 'name lengeth minimum 5 characters',
+            'description.min'       => 'description minimum 10 characters',
+            'stock.min'             => 'must be more than 0',
+            'price.min'             => 'must be more than 5000'
         ];
         
         $validator = Validator::make($req->all(), $rules, $messages);
@@ -96,17 +110,25 @@ class ProductController extends Controller
         $typeIsFound = Type::find($req->type);
         if (!$typeIsFound) {
             return redirect()->back()
-                ->withErrors('Stationary type doesn\'t Exist');
+                ->withErrors('Stationary type doesn\'t Exist')
+                ->withInput();
         }
 
         $product = new Product();
-        $image = $req->file('image');
-        $imageName = $image->getClientOriginalName();
-        $uniqueName = generateUniqueFileName($imageName);
-        $image->move('images', $uniqueName);
+        // $image = $req->file('image');
+        // $imageName = $image->getClientOriginalName();
+        // $uniqueName = generateUniqueFileName($imageName);
+        // $imagePath = '\images';
+        // dd($image);
+        // $image->move($imagePath, $uniqueName);
+        $image = $req->image;
+        if($image){
+            $imageName = $image->getClientOriginalName();
+            $image->move('images', $imageName);
+        }
 
         $product->name          = $req->name;
-        $product->image         = $uniqueName;
+        $product->image         = $imageName;
         $product->description   = $req->description;
         $product->type_id       = $typeIsFound->id;
         $product->stock         = $req->stock;

@@ -21,13 +21,11 @@
             <div class="result-wrap-container">
                 @foreach ($data as $eachData)
                 @if (Auth::check())
-                    <a href={{'/product/detail/' . $eachData->id }}> 
-                        <div class="image-card">
-                            <img src={{ asset('images/' . $eachData->image ) }} alt={{ $eachData->name }}>
-                            <div class="detail-container">
-                                <div class="name">{{ $eachData->name }}</div>
-                                <div class="desc">{{ $eachData->description }}</div>
-                            </div>
+                    <a class="image-card card-hover" href={{'/product/detail/' . $eachData->id }}> 
+                        <img src={{ asset('images/' . $eachData->image ) }} alt={{ $eachData->name }}>
+                        <div class="detail-container">
+                            <div class="name">{{ $eachData->name }}</div>
+                            <div class="desc">{{ $eachData->description }}</div>
                         </div>
                     </a>
                 @else 
