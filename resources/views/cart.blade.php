@@ -15,7 +15,7 @@
         @endif
         @if (Session::has('deletedData'))
             <div class="alert alert-success">
-                <div>{{ Session::get('deletedData') }}</div>
+                <div>"{{ Session::get('deletedData')->name }}" Successfully Deleted!</div>
             </div>
         @endif
         @if (count($data))

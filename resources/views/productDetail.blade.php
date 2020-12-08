@@ -15,7 +15,7 @@
         @endif
         @if (Session::has('editedData'))
             <div class="alert alert-success">
-                <div>{{ Session::get('deletedData') }}</div>
+                <div>"{{ Session::get('deletedData')->name }}" Deleted Successfully!</div>
             </div>  
         @endif
         <div class="item-container">

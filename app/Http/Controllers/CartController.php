@@ -107,7 +107,11 @@ class CartController extends Controller
                 $product = Product::find($cart->product->id);
                 if (  $cart->quantity > $product->stock ){
                     return redirect()->back()
-                        ->withErrors('Please update your cart quantity, because your quantity reach our product stock!');
+                        ->withErrors(
+                            'Please update your cart quantity with product name: ' . 
+                            $product->name . 
+                            ',because its reach our product stock limit!'
+                        );
                 }
             }
             $transaction = new Transaction();
