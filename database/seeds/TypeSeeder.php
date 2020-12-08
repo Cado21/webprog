@@ -12,18 +12,6 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        $typeNames = [
-            'pen',
-            'pencil',
-            'ruler',
-            'notebook',
-            'dictionary',
-            'smart pen', 
-            'smart pencil', 
-            'smart reader', 
-            'smart note', 
-            'eraser'
-        ];
         $types = [
             [
                 'name' => 'pen',
@@ -66,7 +54,11 @@ class TypeSeeder extends Seeder
                 'image' => 'peclian.jpg'
             ],
         ];
-            
+        foreach( $types as $type ) {
+            Type::create([
+                'name' => $type['name'],
+                'image'=> $type['image'],
+            ]);
         }
 }
 
