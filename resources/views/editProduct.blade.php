@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    {{-- <link href="{{ asset('css/.css') }}" rel="stylesheet" type="text/css"> --}}
-@endsection
-
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
