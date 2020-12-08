@@ -41,7 +41,7 @@
                         @can('isMember')
                         <form action={{ route('cart.add') }} method="post">
                             @csrf
-                            <input type="number" name="quantity" value="1" >
+                            <input type="number" name="quantity" value={{ old('quantity') ?? "1"}} >
                             <input type="hidden" name="product_id" value={{$data->id}}>
                             <button class="btn btn-primary">Add to Cart</button>
                         </form>
