@@ -8,12 +8,12 @@
             @endforeach
         </div>
     @endif
-    @if (Session::has('editedData'))
-        <div class="alert alert-success">
-            <div>{{ Session::get('editedData') }}</div>
-        </div>  
-    @endif
     <div class="container">
+        @if (Session::has('editedData'))
+            <div class="alert alert-success">
+                <div>"{{ Session::get('editedData')->name }}" Successfully Updated!</div>
+            </div>  
+        @endif
         <form action={{route('product.edit' , $data->id)}} method="POST">
             @csrf
             @method('put')
