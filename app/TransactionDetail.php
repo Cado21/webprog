@@ -12,6 +12,9 @@ class TransactionDetail extends Model
         'name', 
         'image',
         'description',
+        'product_id',
+        'type_id',
+        'type_name',
     ];
     
     public function transaction() {

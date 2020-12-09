@@ -5,15 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Type;
+use App\Transaction;
 use Auth;
 use Validator;
 use App\Providers\RouteServiceProvider;
 class TypeController extends Controller
 {
     public function index() {
-        $types = Type::all()->take(4);
+        $transactions = Transaction::with(['details' => function ($query) {
+            $query->orderBy('quantity', 'desc');
+        }])->get();
+
+        $typeIdsCount = [];
+        foreach( $transactions as $transaction ) {
+            foreach( $transaction->details as $detail ) {
+                $typeIdExist = array_key_exists( $detail->type_id , $typeIdsCount );
+                $typeIdsCount[$detail->type_id] = $typeIdExist ? $typeIdsCount[$detail->type_id]+1 : 1;
+            }
+        }
+        arsort($typeIdsCount);
+        $typeIdsCount = array_slice($typeIdsCount, 0, 4, true); 
+
+        if ( count ($typeIdsCount) < 4 ) {
+            $typeToBeAppend = Type::all()->take( 4 - count($typeIdsCount) );
+            foreach( $typeToBeAppend as $type ) $typeIdsCount[$type->id] = 1;
+        } 
+        $typeIds = array_keys($typeIdsCount);
+        // dd( $typeIds );
+        $tempStr = implode(',', $typeIds);
+        $data = Type::whereIn('id', $typeIds)
+            ->orderByRaw("FIELD(id, $tempStr)")
+            ->get();
+
         $loggedIn = Auth::check();
-        return $loggedIn ? redirect(RouteServiceProvider::SEARCH) : view('welcome')->with('data',$types);
+        return $loggedIn ? redirect(RouteServiceProvider::SEARCH) : view('welcome')->with('data',$data);
     }
     public function showCreateType() {
         $types = Type::all();
