@@ -93,12 +93,13 @@ class TypeController extends Controller
         $type = Type::find($id);
         
         $rules = [
-            'name' => 'required|min:5',
+            'name' => 'required|min:5|unique:types',
         ];
         $messages = [
             'name.required'         => 'nama wajib diisi',
+            'name.unique'           => 'stationary with name "' . $req->name . '" already taken'
         ];
-
+        
         $validator = Validator::make($req->all(), $rules, $messages);
         
         if ($validator->fails()) {
