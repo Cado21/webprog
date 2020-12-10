@@ -55,12 +55,13 @@ class TypeController extends Controller
     
     public function create( Request $req ) {
         $rules = [
-            'name' => 'required|min:5',
+            'name' => 'required|min:5|unique:types',
             'image' => 'required',
         ];
         $messages = [
             'name.required'         => 'name wajib diisi',
             'image.required'        => 'image wajib diisi',
+            'name.unique'           => 'stationary with name "' . $req->name . '" already taken',
         ];
         
         $validator = Validator::make($req->all(), $rules, $messages);
@@ -68,12 +69,6 @@ class TypeController extends Controller
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
-        }
-
-        $typeIsFound = Type::where( 'name' , '=' , $req->name )->first();
-        if ($typeIsFound) {
-            return redirect()->back()
-                ->withErrors('Stationary type must be unique');
         }
 
         $type = new Type();
@@ -97,7 +92,7 @@ class TypeController extends Controller
         ];
         $messages = [
             'name.required'         => 'nama wajib diisi',
-            'name.unique'           => 'stationary with name "' . $req->name . '" already taken'
+            'name.unique'           => 'stationary with name "' . $req->name . '" already taken',
         ];
         
         $validator = Validator::make($req->all(), $rules, $messages);
