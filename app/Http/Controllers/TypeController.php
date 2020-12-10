@@ -19,13 +19,16 @@ class TypeController extends Controller
         $typeIdsCount = [];
         foreach( $transactions as $transaction ) {
             foreach( $transaction->details as $detail ) {
-                $typeIdExist = array_key_exists( $detail->type_id , $typeIdsCount );
-                $typeIdsCount[$detail->type_id] = $typeIdExist ? $typeIdsCount[$detail->type_id]+1 : 1;
+                $typeNotDeleted = Type::find($detail->type_id);
+                if ( $typeNotDeleted ) {
+                    $typeIdExist = array_key_exists( $detail->type_id , $typeIdsCount );
+                    $typeIdsCount[$detail->type_id] = $typeIdExist ? $typeIdsCount[$detail->type_id]+1 : 1;
+                }
             }
         }
         arsort($typeIdsCount);
         $typeIdsCount = array_slice($typeIdsCount, 0, 4, true); 
-
+        // dd ( $typeIdsCount );
         if ( count ($typeIdsCount) < 4 ) {
             $typeToBeAppend = Type::all()->take( 4 - count($typeIdsCount) );
             foreach( $typeToBeAppend as $type ) $typeIdsCount[$type->id] = 1;
