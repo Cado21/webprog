@@ -20,11 +20,8 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="inp-container">
-                <div class="img-preview-container" style="display:none;">
-                    <img alt="img-preview">
-                </div>
                 <div class="label">Browse Photos: </div>
-                <input type="file" name="image" accept="image/*" onchange="loadFile(e)">
+                <input type="file" name="image" accept="image/*" onchange="loadFile(event)">
             </div>
 
             @error('name')
@@ -77,15 +74,16 @@
 
 @section('footer-script')
     <script>
-        const loadFile = function(e) {
+        const loadFile = function(event) {
             const reader = new FileReader();
             const imgContainer = document.getElementsByClassName('img-preview-container')[0];
             imgContainer.style.display = 'block';
+
             reader.onload = function() {
                 var output = document.getElementById('img-preview');
                 output.src = reader.result;
             };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(event.target.files[0]);
         };
 
     </script>
