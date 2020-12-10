@@ -31,7 +31,7 @@ class CartController extends Controller
             'product_id'=> 'required',
         ];
         $messages = [
-            'quantity.min'        => 'quantity minimal 1',
+            //'quantity.min'        => 'quantity min 1',
         ];
         
         $validator = Validator::make($req->all(), $rules, $messages);
@@ -82,8 +82,8 @@ class CartController extends Controller
                 'quantity' => 'required|integer|min:1' . '|max:' . $cart->product->stock,
             ];
             $messages = [
-                'quantity.min'        => 'quantity minimal 1',
-                'quantity.max'        => 'quantity minimal '.$cart->product->stock,
+                //'quantity.min'        => 'quantity minimal 1',
+                'quantity.max'        => 'maximum quantity '.$cart->product->stock,
             ];
             $validator = Validator::make($req->all(), $rules, $messages);
             if ($validator->fails()) { 
