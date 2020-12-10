@@ -120,7 +120,7 @@ class CartController extends Controller
 
             foreach ( $carts->get() as $cart ) {
                 $product = Product::find($cart->product->id);
-                $product->stock = $product->stock - $cart->quantity;
+                $product->stock -= $cart->quantity;
         
                 $transactionDetail = new TransactionDetail();
                 $transactionDetail->name                = $cart->product->name;
@@ -129,7 +129,12 @@ class CartController extends Controller
                 $transactionDetail->transaction_id      = $transaction->id;
                 $transactionDetail->price               = $cart->product->price;
                 $transactionDetail->quantity            = $cart->quantity;
+                
+                $transactionDetail->product_id          = $cart->product->id;
+                $transactionDetail->type_id             = $cart->product->type->id;
+                $transactionDetail->type_name           = $cart->product->type->name;
 
+                $product->save();
                 $transactionDetail->save();
             }
             $carts->delete();
