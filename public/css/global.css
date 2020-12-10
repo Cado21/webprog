@@ -1,0 +1,58 @@
+html, body {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;   
+    padding: 10px;
+    min-height: 60px;
+}
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.search-bar {
+    padding: 5px;
+    max-width: 500px;
+    width: 100%;
+    border: none;
+    color: black;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.nav-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 300px;
+}
+.nav-right > .login-btn, .register-btn {
+    padding: 10px;
+    margin-right: 20px;
+    min-width: 100px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: grey;
+}
+.nav-right > .login-btn:hover, .nav-right > .register-btn:hover {
+    background-color: lightgray;
+    color: grey;
+}
