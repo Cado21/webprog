@@ -27,7 +27,7 @@
                 @foreach ($data as $eachData)
                 @if (Auth::check())
                     <a class="image-card card-hover" href={{'/product/detail/' . $eachData->id }}> 
-                        <img src={{ asset('images/' . $eachData->image ) }} alt={{ $eachData->name }}>
+                        <img src="{{ asset('images/' . $eachData->image ) }}" alt={{ $eachData->name }}>
                         <div class="detail-container">
                             <div class="name">{{ $eachData->name }}</div>
                             <div class="desc">{{ $eachData->description }}</div>

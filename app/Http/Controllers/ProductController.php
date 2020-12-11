@@ -111,20 +111,13 @@ class ProductController extends Controller
         }
 
         $product = new Product();
-        // $image = $req->file('image');
-        // $imageName = $image->getClientOriginalName();
-        // $uniqueName = generateUniqueFileName($imageName);
-        // $imagePath = '\images';
-        // dd($image);
-        // $image->move($imagePath, $uniqueName);
         $image = $req->image;
-        if($image){
-            $imageName = $image->getClientOriginalName();
-            $image->move('images', $imageName);
-        }
+        $imageName = $image->getClientOriginalName();
+        $uniqueName = generateUniqueFileName($imageName);
+        $image->move('images', $uniqueName);
 
         $product->name          = $req->name;
-        $product->image         = $imageName;
+        $product->image         = $uniqueName;
         $product->description   = $req->description;
         $product->type_id       = $typeIsFound->id;
         $product->stock         = $req->stock;
