@@ -20,9 +20,9 @@
         @endif
         <div class="item-container">
             <div class="left">
-                <img src={{ asset('images/' . $data->image) }} class="product-img"/>
+                <img src="{{ asset('images/' . $data->image) }}" class="product-img"/>
             </div>
-            <div class="right">
+            <div class="right ml-2">
                 <div class="text">Name: {{ $data->name }}</div>
                 <div class="text">Stock: {{ $data->stock }}</div>
                 <div class="text">Price: {{ $data->price }}</div>
@@ -43,7 +43,7 @@
                             @csrf
                             <input type="number" name="quantity" value={{ old('quantity') ?? "1"}} >
                             <input type="hidden" name="product_id" value={{$data->id}}>
-                            <button class="btn btn-primary">Add to Cart</button>
+                            <button class="btn btn-dark">Add to Cart</button>
                         </form>
                         @endcan
                     @endif
