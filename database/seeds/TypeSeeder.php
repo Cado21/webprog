@@ -60,7 +60,6 @@ class TypeSeeder extends Seeder
                 'image'=> $type['image'],
             ]);
         }
-    }
 }
 
 
